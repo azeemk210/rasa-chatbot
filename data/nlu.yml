@@ -1,0 +1,20 @@
+version: "3.1"
+
+nlu:
+- intent: ask_region_members
+  examples: |
+    - Are there any members in [Italy](region)?
+    - Is anyone from [Germany](region) part of the community?
+    - Do we have members in [Austria](region)?
+
+- intent: ask_member_names
+  examples: |
+    - Who are the members in [Italy](region)?
+    - List the members from [Germany](region).
+    - Give me names of members in [Austria](region).
+
+- intent: ask_member_details
+  examples: |
+    - Provide details for [John Doe](name).
+    - Can I get contact info for [Jane Smith](name)?
+    - Show me the info of [Michael Brown](name).

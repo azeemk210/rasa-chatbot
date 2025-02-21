@@ -1,0 +1,15 @@
+stories:
+- story: ask region members
+  steps:
+  - intent: ask_region_members
+  - action: action_check_region_members
+
+- story: ask member names
+  steps:
+  - intent: ask_member_names
+  - action: action_list_members
+
+- story: ask member details
+  steps:
+  - intent: ask_member_details
+  - action: action_provide_member_details

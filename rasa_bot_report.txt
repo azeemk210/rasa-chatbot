@@ -1,0 +1,31 @@
+
+Rasa Bot Report
+
+1. Introduction:
+   - This report documents the process of setting up and training a Rasa chatbot, including the environment setup, model training, and bot deployment.
+
+2. Environment Setup:
+   - Steps:
+     1. Activated the `rasa` environment using Conda.
+     2. Launched the Rasa shell using the command `rasa shell`.
+   - Warnings:
+     Several deprecation warnings related to the SQLAlchemy version and `pkg_resources` were encountered during the setup.
+
+3. Model Training:
+   - The model was trained using several components, including:
+     - Featurizers: `RegexFeaturizer`, `LexicalSyntacticFeaturizer`, `CountVectorsFeaturizer`.
+     - Classifier: `DIETClassifier`.
+     - Policies: `MemoizationPolicy`, `RulePolicy`, `TEDPolicy`, and the experimental `UnexpecTEDIntentPolicy`.
+   - Training Logs:
+     - The training included processing story blocks, validating training data, and applying different policies.
+     - A final model was saved at `models/20250206-120952-desert-flush.tar.gz`.
+
+4. Model Deployment:
+   - Steps:
+     - Started the Rasa server using the command `rasa server`.
+     - The bot was successfully loaded and is running on `http://0.0.0.0:5005`.
+   - Bot Interaction:
+     - The bot responded to basic inputs like "hello" and "I am good" with predefined responses.
+
+5. Conclusion:
+   - The bot is trained, deployed, and running successfully. Further testing and refinement of responses and policies may be necessary for production deployment.

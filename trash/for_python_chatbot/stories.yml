@@ -1,0 +1,102 @@
+version: "3.1"
+
+stories:
+- story: Happy Path Greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- story: Goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Ask Python Version
+  steps:
+  - intent: ask_python_version
+  - action: utter_ask_python_version
+
+- story: Ask Install Python
+  steps:
+  - intent: ask_install_python
+  - action: utter_ask_install_python
+
+- story: Ask Help Loops
+  steps:
+  - intent: ask_help_loops
+  - action: utter_ask_help_loops
+
+- story: Ask Help Lists
+  steps:
+  - intent: ask_help_lists
+  - action: utter_ask_help_lists
+
+- story: Ask Help Dictionaries
+  steps:
+  - intent: ask_help_dictionaries
+  - action: utter_ask_help_dictionaries
+
+- story: Ask Help Functions
+  steps:
+  - intent: ask_help_functions
+  - action: utter_ask_help_functions
+
+- story: Ask Help File I/O
+  steps:
+  - intent: ask_help_file_io
+  - action: utter_ask_help_file_io
+
+- story: Ask Help Packages
+  steps:
+  - intent: ask_help_packages
+  - action: utter_ask_help_packages
+
+- story: Ask Python Definition
+  steps:
+  - intent: ask_python_definition
+  - action: utter_ask_python_definition
+
+- story: Ask Python Syntax
+  steps:
+  - intent: ask_python_syntax
+  - action: utter_ask_python_syntax
+
+- story: Ask Python Data Types
+  steps:
+  - intent: ask_python_data_types
+  - action: utter_ask_python_data_types
+
+- story: Ask Python Libraries
+  steps:
+  - intent: ask_python_libraries
+  - action: utter_ask_python_libraries
+
+- story: Ask Python Frameworks
+  steps:
+  - intent: ask_python_frameworks
+  - action: utter_ask_python_frameworks
+
+- story: Ask Python Use Cases
+  steps:
+  - intent: ask_python_use_cases
+  - action: utter_ask_python_use_cases
+
+- story: Ask Python Community
+  steps:
+  - intent: ask_python_community
+  - action: utter_ask_python_community
+
+- story: Ask Python Jobs
+  steps:
+  - intent: ask_python_jobs
+  - action: utter_ask_python_jobs
+
+- story: Ask Python Resources
+  steps:
+  - intent: ask_python_resources
+  - action: utter_ask_python_resources
+
+- story: Fallback
+  steps:
+    - intent: nlu_fallback
+    - action: utter_default

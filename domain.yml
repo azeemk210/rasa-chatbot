@@ -1,0 +1,40 @@
+version: "3.1"
+
+intents:
+  - ask_region_members
+  - ask_member_names
+  - ask_member_details
+
+entities:
+  - region
+  - name
+
+slots:
+  region:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: region
+
+  name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: name
+
+
+responses:
+  utter_region_members:
+    - text: "Yes, there are members in {region}."
+    - text: "No, there are no members in {region}."
+
+  utter_member_names:
+    - text: "The members in {region} are: {names}."
+
+  utter_member_details:
+    - text: "Details for {name}: Email: {email}, Phone: {phone}."
+
+actions:
+  - action_check_region_members
+  - action_list_members
+  - action_provide_member_details
