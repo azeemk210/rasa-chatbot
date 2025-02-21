@@ -10,13 +10,12 @@ This is a Rasa-powered chatbot designed to answer questions about community memb
 
 ```
 ├── data/
-│   └── community_members.csv      # List of community members
+│   └── community_members.csv
+    └── nlu.yml 
+    └── stories.yml
 ├── actions/
 │   └── actions.py                 # Custom actions for dynamic responses
 ├── domain.yml                     # Intents, entities, slots, responses, and actions
-├── nlu.yml                        # Natural language understanding training data
-├── stories.yml                    # Example conversations (stories)
-├── rules.yml                      # Rules for specific chatbot behavior
 ├── config.yml                     # Configuration for the pipeline and policies
 ├── credentials.yml                # Credentials for external services
 ├── endpoints.yml                  # Configures custom actions
