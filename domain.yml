@@ -4,6 +4,7 @@ intents:
   - ask_region_members
   - ask_member_names
   - ask_member_details
+  - greet
 
 entities:
   - region
@@ -21,9 +22,13 @@ slots:
     mappings:
       - type: from_entity
         entity: name
+      - type: from_text
 
 
 responses:
+  utter_greet:
+    - text: "Hello! How can I assist you today?"
+
   utter_region_members:
     - text: "Yes, there are members in {region}."
     - text: "No, there are no members in {region}."
@@ -33,6 +38,9 @@ responses:
 
   utter_member_details:
     - text: "Details for {name}: Email: {email}, Phone: {phone}."
+
+  utter_ask_name:
+    - text: "Whose details do you need? Please provide a full name."
 
 actions:
   - action_check_region_members

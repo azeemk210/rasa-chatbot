@@ -1,6 +1,16 @@
 version: "3.1"
 
 nlu:
+
+- intent: greet
+  examples: |
+    - Hi
+    - Hello
+    - Hey
+    - Good morning
+    - Good evening
+    - Good afternoon
+    
 - intent: ask_region_members
   examples: |
     - Are there any members in [Italy](region)?
@@ -15,6 +25,14 @@ nlu:
 
 - intent: ask_member_details
   examples: |
-    - Provide details for [John Doe](name).
-    - Can I get contact info for [Jane Smith](name)?
-    - Show me the info of [Michael Brown](name).
+    - Provide details for [John Doe](name)
+    - Can you provide details for [Chris Evans](name)?
+    - Show me the contact of [Emily Johnson](name)
+    - Give details about [Michael Brown](name)
+    - I need information about [Sarah Wilson](name)
+    - What is the phone number of [Laura Martinez](name)?
+    - How can I contact [Noah Lewis](name)?
+    - Tell me about [Isabella Young](name)
+    - Get me the email of [Liam Anderson](name)
+    - Contact details of [Sophia Thomas](name)
+
