@@ -53,6 +53,14 @@ In a new terminal, start the Rasa shell:
 rasa shell
 ```
 
+or 
+To run on webpage
+
+```bash
+rasa run --enable-api --cors "*"
+```
+open index.html in your browser.
+
 ### 5️⃣ Test Example Queries
 Try asking the bot:
 
