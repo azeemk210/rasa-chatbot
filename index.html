@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rasa Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #8a8aa7;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+        .chatbox {
+            width: 90%;
+            max-width: 500px;
+            height: 60vh;
+            border: 1px solid #ccc;
+            overflow-y: auto;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .user-message {
+            text-align: right;
+            color: #007bff;
+            margin: 10px 0;
+        }
+        .bot-message {
+            text-align: left;
+            color: #28a745;
+            margin: 10px 0;
+        }
+        .message-time {
+            font-size: 0.8em;
+            color: #666;
+            margin-left: 5px;
+        }
+        input {
+            width: 70%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #loading {
+            display: none;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat with Rasa Bot</h1>
+    <div class="chatbox" id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="clearChat()">Clear Chat</button>
+    <div id="loading">Loading...</div>
+
+    <script>
+        // Load chat history from localStorage on page load
+        window.onload = function() {
+            loadChatHistory();
+        };
+
+        // Function to send a message to the Rasa bot
+        async function sendMessage() {
+            let userMessage = document.getElementById("userInput").value;
+            if (!userMessage) return;
+
+            // Display user message
+            let chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += `
+                <p class='user-message'>
+                    <strong>You:</strong> ${userMessage}
+                    <span class='message-time'>${getCurrentTime()}</span>
+                </p>
+            `;
+
+            // Show loading indicator
+            document.getElementById("loading").style.display = "block";
+
+            try {
+                // Send request to Rasa REST API
+                let response = await fetch("http://localhost:5005/webhooks/rest/webhook", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ sender: "user", message: userMessage })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                let responseData = await response.json();
+
+                // Display bot response
+                responseData.forEach((msg) => {
+                    if (msg.text) {
+                        chatbox.innerHTML += `
+                            <p class='bot-message'>
+                                <strong>Bot:</strong> ${msg.text}
+                                <span class='message-time'>${getCurrentTime()}</span>
+                            </p>
+                        `;
+                    }
+                    if (msg.buttons) {
+                        let buttonsHTML = msg.buttons.map(button => `
+                            <button onclick="sendButtonPayload('${button.payload}')">${button.title}</button>
+                        `).join("");
+                        chatbox.innerHTML += `<div class='bot-message'>${buttonsHTML}</div>`;
+                    }
+                });
+            } catch (error) {
+                console.error("Error sending message to Rasa:", error);
+                chatbox.innerHTML += `
+                    <p class='bot-message'>
+                        <strong>Bot:</strong> Sorry, something went wrong. Please try again.
+                        <span class='message-time'>${getCurrentTime()}</span>
+                    </p>
+                `;
+            } finally {
+                // Hide loading indicator
+                document.getElementById("loading").style.display = "none";
+            }
+
+            // Scroll chatbox to bottom
+            chatbox.scrollTop = chatbox.scrollHeight;
+
+            // Clear input field
+            document.getElementById("userInput").value = "";
+
+            // Save chat history
+            saveChatHistory();
+        }
+
+        // Function to handle button payloads
+        function sendButtonPayload(payload) {
+            document.getElementById("userInput").value = payload;
+            sendMessage();
+        }
+
+        // Function to handle Enter key press
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+
+        // Function to get the current time
+        function getCurrentTime() {
+            let now = new Date();
+            return now.toLocaleTimeString();
+        }
+
+        // Function to save chat history to localStorage
+        function saveChatHistory() {
+            let chatbox = document.getElementById("chatbox");
+            localStorage.setItem("chatHistory", chatbox.innerHTML);
+        }
+
+        // Function to load chat history from localStorage
+        function loadChatHistory() {
+            let chatbox = document.getElementById("chatbox");
+            let chatHistory = localStorage.getItem("chatHistory");
+            if (chatHistory) {
+                chatbox.innerHTML = chatHistory;
+                chatbox.scrollTop = chatbox.scrollHeight; // Scroll to bottom
+            }
+        }
+
+        // Function to clear the chat history
+        function clearChat() {
+            let chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML = "";
+            localStorage.removeItem("chatHistory");
+        }
+    </script>
+</body>
+</html>
