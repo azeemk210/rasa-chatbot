@@ -20,6 +20,7 @@ This is a Rasa-powered chatbot designed to answer questions about community memb
 ├── credentials.yml                # Credentials for external services
 ├── endpoints.yml                  # Configures custom actions
 ├── README.md                      # Project documentation
+├── Index.html  
 ```
 
 ## 🚀 How to Run the Chatbot
