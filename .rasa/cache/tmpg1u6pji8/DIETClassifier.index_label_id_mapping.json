@@ -1,0 +1,23 @@
+{
+  "0": "affirm",
+  "1": "ask_help_dictionaries",
+  "2": "ask_help_file_io",
+  "3": "ask_help_functions",
+  "4": "ask_help_lists",
+  "5": "ask_help_loops",
+  "6": "ask_help_packages",
+  "7": "ask_install_python",
+  "8": "ask_python_community",
+  "9": "ask_python_data_types",
+  "10": "ask_python_definition",
+  "11": "ask_python_frameworks",
+  "12": "ask_python_jobs",
+  "13": "ask_python_libraries",
+  "14": "ask_python_resources",
+  "15": "ask_python_syntax",
+  "16": "ask_python_use_cases",
+  "17": "ask_python_version",
+  "18": "deny",
+  "19": "goodbye",
+  "20": "greet"
+}

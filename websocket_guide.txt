@@ -1,0 +1,76 @@
+📝 My Personal Report on Setting Up WebSocket with Rasa Chatbot
+
+1.  The Goal
+
+    The primary objective was to configure a Rasa chatbot for WebSocket communication, moving beyond the limitations of REST APIs to enable more interactive, real-time exchanges ideal for web applications.
+2.  The Setup Process
+
+    Step 1: Environment Configuration
+
+    * Created a virtual environment:
+        ```bash
+        python -m venv websocket_env
+        ```
+    * Activated the environment:
+        ```bash
+        websocket_env\Scripts\activate
+        ```
+    * Installed Rasa and necessary libraries:
+        ```bash
+        pip install rasa
+        pip install aiohttp websockets
+        ```
+    * Verified installation:
+        ```bash
+        rasa --version
+        ```
+    Step 2: Rasa Setup
+
+    * Initialized a Rasa project:
+        ```bash
+        rasa init --no-prompt
+        ```
+    * Configured `credentials.yml` for REST API:
+        ```yaml
+        rest:
+          #   Enable Rasa to respond to REST calls
+        ```
+    * Trained the Rasa model:
+        ```bash
+        rasa train
+        ```
+    Step 3: WebSocket Server Setup
+
+    * Created `websocket_server.py`:
+        * Utilized `aiohttp` for Rasa REST API communication.
+        * Implemented WebSocket handling with `websockets`.
+        * Server listens on `ws://localhost:8765`.
+        * Forwards messages to `http://localhost:5005/webhooks/rest/webhook`.
+    Step 4: WebSocket Client Creation (HTML)
+
+    * Developed `client.html`:
+        * Sends user messages via WebSocket.
+        * Displays bot responses on the webpage.
+3.  System Operation (3 Terminals)
+
+    * Terminal 1: Rasa Action Server
+        ```bash
+        rasa run actions --debug
+        ```
+        (Handles custom actions, e.g., region member checks)
+    * Terminal 2: Rasa Server
+        ```bash
+        rasa run --enable-api --cors "*" --debug --port 5005
+        ```
+        (Manages main Rasa service and message responses)
+    * Terminal 3: WebSocket Server
+        ```bash
+        python websocket_server.py
+        ```
+        (Bridges WebSocket client and Rasa server)
+4.  Chatbot Testing
+
+    * Opened `client.html` in a browser.
+    * Tested with messages like "Hello" and "Are there members in Germany?".
+    * Observed real-time responses on the webpage.
+
